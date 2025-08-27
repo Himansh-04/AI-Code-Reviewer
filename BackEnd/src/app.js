@@ -1,18 +1,21 @@
 const express = require('express');
-const aiRoutes = require('./routes/ai.routes')
-const cors = require('cors')
+const aiRoutes = require('./routes/ai.routes');
+const cors = require('cors');
 
-const app = express()
+const app = express();
 
-app.use(cors())
+app.use(cors());
+app.use(express.json());
 
-
-app.use(express.json())
-
+// Test route
 app.get('/', (req, res) => {
-    res.send('Hello World')
-})
+    res.send('Hello World');
+});
 
-app.use('/ai', aiRoutes)
+// AI routes
+app.use('/ai', aiRoutes);
 
-module.exports = app
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+});
