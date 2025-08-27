@@ -1,21 +1,18 @@
 const express = require('express');
-const aiRoutes = require('./routes/ai.routes');
 const cors = require('cors');
+const aiRoutes = require('./routes/ai.routes'); // agar routes folder hai
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-// Test route
+// test route
 app.get('/', (req, res) => {
-    res.send('Hello World');
+  res.send('Hello from Render backend 🚀');
 });
 
-// AI routes
+// routes
 app.use('/ai', aiRoutes);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`🚀 Server running on port ${PORT}`);
-});
+module.exports = app; // sirf app export kar
