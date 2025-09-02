@@ -1,24 +1,26 @@
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 const app = express();
 
-// ✅ Allow frontend from Vercel
-app.use(cors({
-  origin: process.env.FRONTEND_URL, // https://ai-code-reviewer-sigma-one.vercel.app
-  methods: ["GET", "POST"],
-  allowedHeaders: ["Content-Type"],
-  credentials: false
-}));
-
+// middlewares
+app.use(cors());
 app.use(express.json());
 
-// ✅ Example test route
-app.post("/", (req, res) => {
-  res.json({ message: "Backend is working!", code: req.body.code });
+// test route
+app.get("/", (req, res) => {
+  res.send("Backend is working fine ✅");
+});
+
+// review route example
+app.post("/api/review", (req, res) => {
+  const { code } = req.body;
+  if (!code) {
+    return res.status(400).json({ error: "Code is required" });
+  }
+
+  // Dummy response
+  res.json({ review: `Your code looks fine, just improve formatting.` });
 });
 
 export default app;
