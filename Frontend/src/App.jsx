@@ -22,7 +22,7 @@ function App() {
   async function reviewCode() {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/`, // ✅ Using .env variable
+        `${import.meta.env.VITE_API_URL}/`, 
         { code }
       )
       setReview(response.data)
