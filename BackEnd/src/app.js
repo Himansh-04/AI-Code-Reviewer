@@ -1,21 +1,19 @@
 const express = require('express');
-const aiRoutes = require('./routes/ai.routes');
 const cors = require('cors');
+const aiRoutes = require('./routes/ai.routes');
 
 const app = express();
 
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-// ✅ Default route
+// Default route
 app.get('/', (req, res) => {
-    res.send('AI Code Reviewer Backend is running 🚀');
+  res.send('AI Code Reviewer Backend is running 🚀');
 });
 
-// ✅ API routes
+// API routes
 app.use('/ai', aiRoutes);
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+module.exports = app; 
