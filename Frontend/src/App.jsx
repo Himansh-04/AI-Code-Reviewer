@@ -22,8 +22,14 @@ function App() {
   async function reviewCode() {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/`, 
-        { code }
+        `${import.meta.env.VITE_API_URL}/`, // ✅ Backend URL from .env
+        { code },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: false, // ⛔ important for CORS on Vercel-Render setup
+        }
       )
       setReview(response.data)
     } catch (error) {
@@ -40,7 +46,9 @@ function App() {
             <Editor
               value={code}
               onValueChange={code => setCode(code)}
-              highlight={code => prism.highlight(code, prism.languages.javascript, "javascript")}
+              highlight={code =>
+                prism.highlight(code, prism.languages.javascript, "javascript")
+              }
               padding={10}
               style={{
                 fontFamily: '"Fira code", "Fira Mono", monospace',

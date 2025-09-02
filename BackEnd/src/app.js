@@ -1,24 +1,24 @@
-const express = require('express');
-const cors = require('cors');
-const aiRoutes = require('./routes/ai.routes');
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 
-// ✅ Allow only your frontend domain
+// ✅ Allow frontend from Vercel
 app.use(cors({
-  origin: process.env.FRONTEND_URL,
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
+  origin: process.env.FRONTEND_URL, // https://ai-code-reviewer-sigma-one.vercel.app
+  methods: ["GET", "POST"],
+  allowedHeaders: ["Content-Type"],
+  credentials: false
 }));
 
 app.use(express.json());
 
-// Default route
-app.get('/', (req, res) => {
-  res.send('AI Code Reviewer Backend is running 🚀');
+// ✅ Example test route
+app.post("/", (req, res) => {
+  res.json({ message: "Backend is working!", code: req.body.code });
 });
 
-// API routes
-app.use('/ai', aiRoutes);
-
-module.exports = app;
+export default app;
