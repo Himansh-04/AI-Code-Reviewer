@@ -4,8 +4,13 @@ const aiRoutes = require('./routes/ai.routes');
 
 const app = express();
 
-// Middleware
-app.use(cors());
+// ✅ Allow only your frontend domain
+app.use(cors({
+  origin: process.env.FRONTEND_URL,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
+
 app.use(express.json());
 
 // Default route
@@ -16,4 +21,4 @@ app.get('/', (req, res) => {
 // API routes
 app.use('/ai', aiRoutes);
 
-module.exports = app; 
+module.exports = app;
